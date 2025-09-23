@@ -1,5 +1,7 @@
 require("dotenv").config();
 const express = require("express");
+const cron = require("node-cron");
+const syncMatches = require("./utils/syncMatches");
 const cors = require("cors");
 const routes = require("./routes/routes");
 
@@ -11,6 +13,10 @@ const corsOptions = {
 	credentials: true,
 };
 
+// Run every 6 hours
+cron.schedule("0 */6 * * *", () => {
+	syncMatches();
+});
 app.use(cors(corsOptions));
 app.use(express.json());
 

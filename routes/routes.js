@@ -1,23 +1,33 @@
 const express = require("express");
 const {
-  getAreas,
-  getAreaById,
-  getCompetitions,
-  getCompetitionById,
-  getCompetitionStandings,
-  getCompetitionMatches,
-  getCompetitionTeams,
-  getCompetitionScorers,
-  getTeamById,
-  getTeamMatches,
-  getMatchById,
-  getMatches,
-  getHead2Head,
-  getPersonById,
-  getPersonMatches,
-} = require('../controllers/footballControllers');
+	getAreas,
+	getAreaById,
+	getCompetitions,
+	getCompetitionById,
+	getCompetitionStandings,
+	getCompetitionMatches,
+	getCompetitionTeams,
+	getCompetitionScorers,
+	getTeamById,
+	getTeamMatches,
+	getMatchById,
+	getMatches,
+	getHead2Head,
+	getPersonById,
+	getPersonMatches,
+} = require("../controllers/footballControllers");
+const syncMatches = require("../utils/syncMatches");
 
 const router = express.Router();
+
+router.post("/sync-matches", async (req, res) => {
+  try {
+    await syncMatches();
+    res.json({ message: "Matches synced to Sanity successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // AREAS
 router.get("/areas", getAreas);
