@@ -9,7 +9,11 @@ const app = express();
 
 // Middleware
 const corsOptions = {
-	origin: ["http://localhost:3000", "https://big-chidd.vercel.app"],
+	origin: [
+		"http://localhost:3000",
+		"https://bigchidd.com",
+		"https://www.bigchidd.com",
+	],
 	credentials: true,
 };
 
